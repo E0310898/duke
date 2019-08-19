@@ -5,16 +5,11 @@ public class Duke {
     {
         String user_output_dash = "_______________________________";
         System.out.println(user_output_dash);
-        System.out.println("added:" + " " + n);
+        System.out.println("Task added:" + " " + n);
         System.out.println(user_output_dash);
     }
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        //System.out.println("Hello from\n" + logo);
 
         Scanner user_input = new Scanner(System.in);
         String greeting = "_______________________________\n"
@@ -23,39 +18,58 @@ public class Duke {
                         + "_______________________________\n";
 
         System.out.println(greeting);
-        ArrayList<String> listOfTasks = new ArrayList<String>();
-        String user_output_dash = "_______________________________";
+
+        ArrayList<Task> listOfTasks = new ArrayList<Task>();
+
+        String user_output_dash = "_______________________________"; // just a definition
         String n = "not_bye";
-        int iterate = 0;
-        int loc_changer = 0;
-        int counter = 0;
+        int iterate; int counter;
+
         while(!n.equals("bye"))
         {
             n = user_input.nextLine();
+
             if(n.equals("list"))
             {
+                System.out.println(user_output_dash + "\n" + "Here are the tasks in your list:");
                 iterate = 0;
                 counter = 0;
                 System.out.println(user_output_dash);
                 while(counter < listOfTasks.size())
                 {
-                    System.out.println((counter+=1) + "." + " " + listOfTasks.get(iterate));
+                    System.out.println((counter+=1) + "." + "[" + listOfTasks.get(iterate).getStatusIcon() + "]" + " " + listOfTasks.get(iterate).description);
                     iterate++;
                 }
                 System.out.println(user_output_dash);
             }
+            else if (n.matches("done \\d+")) {
+                int listIndex = Integer.parseInt(n.replaceAll("[^0-9]", ""));
+                listIndex -= 1;
+                if (listIndex < listOfTasks.size()) {
+                    Task currentTask = listOfTasks.get(listIndex); // object instance
+                    currentTask.markAsDone();
+                    System.out.println(user_output_dash);
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[" + listOfTasks.get(listIndex).getStatusIcon() + "]" + " " + listOfTasks.get(listIndex).description);
+                    System.out.println(user_output_dash);
+                }
+                else
+                {
+                    System.out.println(user_output_dash);
+                    System.out.println("Sorry the task does not exist!");
+                    System.out.println(user_output_dash);
+                }
+            }
             else if (!n.equals("bye"))
             {
-                listOfTasks.add(loc_changer,n);
-                loc_changer++;
+                Task task = new Task(n);
+                listOfTasks.add(task);
                 print_output(n);
             }
         }
-
         String goodbye = "_______________________________\n"
                        + "Bye. Hope to see you again soon!\n"
                        + "_______________________________\n";
-
         System.out.println(goodbye);
     }
 }
