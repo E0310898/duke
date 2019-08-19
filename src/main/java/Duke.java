@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     public static void print_output(String n) //Used to print the output repeatedly!
     {
         String user_output_dash = "_______________________________";
         System.out.println(user_output_dash);
-        System.out.println(n);
+        System.out.println("added:" + " " + n);
         System.out.println(user_output_dash);
     }
     public static void main(String[] args) {
@@ -22,17 +23,34 @@ public class Duke {
                         + "_______________________________\n";
 
         System.out.println(greeting);
-
-        String n = user_input.nextLine();
-        print_output(n);
-
+        ArrayList<String> listOfTasks = new ArrayList<String>();
+        String user_output_dash = "_______________________________";
+        String n = "not_bye";
+        int iterate = 0;
+        int loc_changer = 0;
+        int counter = 0;
         while(!n.equals("bye"))
         {
             n = user_input.nextLine();
-            print_output(n);
+            if(n.equals("list"))
+            {
+                iterate = 0;
+                counter = 0;
+                System.out.println(user_output_dash);
+                while(counter < listOfTasks.size())
+                {
+                    System.out.println((counter+=1) + "." + " " + listOfTasks.get(iterate));
+                    iterate++;
+                }
+                System.out.println(user_output_dash);
+            }
+            else if (!n.equals("bye"))
+            {
+                listOfTasks.add(loc_changer,n);
+                loc_changer++;
+                print_output(n);
+            }
         }
-
-        print_output(n);
 
         String goodbye = "_______________________________\n"
                        + "Bye. Hope to see you again soon!\n"
