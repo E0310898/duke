@@ -49,7 +49,7 @@ public class Duke {
             else if (user_input.matches("done \\d+")) {
                 int listIndex = Integer.parseInt(user_input.replaceAll("[^0-9]", ""));
                 listIndex -= 1;
-                if (listIndex < listOfTasks.size()) {
+                if (listIndex < listOfTasks.size() && listIndex >= 0) {
                     Task currentTask = listOfTasks.get(listIndex); // object instance
                     currentTask.markAsDone();
                     System.out.println(user_output_dash);
@@ -64,33 +64,81 @@ public class Duke {
                     System.out.println(user_output_dash);
                 }
             }
-            else if (user_input.contains("todo"))
+            else if (user_input.matches("todo.*"))
             {
-                String todo_name = user_input.replace("todo ","");
-                Todo TodoTask = new Todo(todo_name);
-                listOfTasks.add(TodoTask);
-                print_output(TodoTask, listOfTasks.size());
+                String todo_name = user_input.replace("todo","");
+                todo_name.replace(" ", "");
+                try {
+                    Todo TodoTask = new Todo(todo_name);
+                    listOfTasks.add(TodoTask);
+                    print_output(TodoTask, listOfTasks.size());
+                }
+                catch (DukeException e) {
+                    System.out.println(e);
+                }
             }
-            else if (user_input.contains("deadline"))
+            else if (user_input.matches("deadline.*"))
             {
-                user_input = user_input.replace("deadline","");
-                String[] parts = user_input.split("/by");
-                String deadline_name = parts[0];
-                String deadline_date = parts[1];
-                Deadline DeadlineTask = new Deadline(deadline_name,deadline_date);
-                listOfTasks.add(DeadlineTask);
-                print_output(DeadlineTask,listOfTasks.size());
-            }
-            else if (user_input.contains("event"))
-            {
-                user_input = user_input.replace("event","");
-                String[] parts = user_input.split("/at");
-                String event_name = parts[0];
-                String event_dateandtime = parts[1];
-                Event EventTask = new Event(event_name,event_dateandtime);
-                listOfTasks.add(EventTask);
-                print_output(EventTask,listOfTasks.size());
+                if(user_input.matches("deadline.*/by.*")) {
+                    user_input = user_input.replace("deadline", "");
+                    String[] parts = user_input.split("/by");
+                    String deadline_name = parts[0];
+                    String deadline_date;
 
+                    if (parts.length < 2) { deadline_date = ""; }
+                    else { deadline_date = parts[1]; }
+
+                    try {
+                        Deadline DeadlineTask = new Deadline(deadline_name, deadline_date);
+                        listOfTasks.add(DeadlineTask);
+                        print_output(DeadlineTask, listOfTasks.size());
+                    } catch (DukeException e) {
+                        System.out.println(e);
+                    }
+                }
+                else{
+                    System.out.println("☹ OOPS!!! The deadline is not given in the proper format of (deadline <description> /by <date/time>)");
+                }
+            }
+            else if (user_input.matches("event.*"))
+            {
+                if (user_input.matches("event.*/at.*")) {
+                    user_input = user_input.replace("event", "");
+                    String[] parts = user_input.split("/at");
+
+                    String event_name = parts[0];
+                    String event_dateandtime;
+
+                    if (parts.length < 2) { event_dateandtime = ""; }
+                    else { event_dateandtime = parts[1]; }
+
+                    try {
+                        Event EventTask = new Event(event_name, event_dateandtime);
+                        listOfTasks.add(EventTask);
+                        print_output(EventTask, listOfTasks.size());
+                    } catch (DukeException e) {
+                        System.out.println(e);
+                    }
+                }
+                else{
+                    System.out.println(("☹ OOPS!!! The event is not given in the proper format (event <description> /at <day/date & duration>)"));
+                }
+
+            }
+            else if (user_input.contains("duke-manual"))
+            {
+                System.out.println("Hi, this is Duke!");
+                System.out.println("I am able to let you add tasks of three types! todo, event and deadline");
+                System.out.println("1. To enter a todo task, key in todo<space>your task description eg. todo borrow books");
+                System.out.println("2. To enter a deadline, key in deadline<space>your deadline description<space>/by<space>the date eg. return books/by Sunday");
+                System.out.println("3. To enter a event, key in event<space>your event description<space>/at<space>the day or date and the time eg. Project meeting /at 2-4pm Sunday");
+                System.out.println("4. To list out all your tasks simply enter list");
+                System.out.println("5. To mark a task as complete just enter done<space>the index of the task as listed");
+                System.out.println("6. To exit, enter bye");
+            }
+            else if(!user_input.equals("bye"))
+            {
+                System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means. If you would like to know how to use Duke, Enter duke-manual");
             }
         }while (!user_input.equals("bye"));
 
