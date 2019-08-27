@@ -1,5 +1,6 @@
 import java.io.*;
-import java.nio.file.attribute.FileStoreAttributeView;
+//import java.nio.file.attribute.FileStoreAttributeView;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -68,7 +69,7 @@ public class Duke {
                 else
                 {
                     System.out.println(user_output_dash);
-                    System.out.println("Sorry the task does not exist!");
+                    System.out.println("☹ OOPS!!! Sorry the task does not exist!");
                     System.out.println(user_output_dash);
                 }
             }
@@ -105,9 +106,13 @@ public class Duke {
                     } catch (DukeException e) {
                         System.out.println(e);
                     }
+                    catch (ParseException e){
+                        System.out.println("☹ OOPS!!! The deadline should be of the format <dd/MM/yyyy HHmm>");
+                        //e.printStackTrace();
+                    }
                 }
                 else{
-                    System.out.println("☹ OOPS!!! The deadline is not given in the proper format of (deadline <description> /by <date/time>)");
+                    System.out.println("☹ OOPS!!! The deadline is not given in the proper format of (deadline <description> /by <dd/MM/yyyy HHmm>)");
                 }
             }
             else if (user_input.matches("event.*"))
@@ -128,10 +133,12 @@ public class Duke {
                         saveFile(listOfTasks,Database);
                     } catch (DukeException e) {
                         System.out.println(e);
+                    } catch (ParseException e) {
+                        System.out.println("☹ OOPS!!! The event's should be of the format <dd/MM/yyyy HHmm-HHmm>");
                     }
-                }
+                    }
                 else{
-                    System.out.println(("☹ OOPS!!! The event is not given in the proper format (event <description> /at <day/date & duration>)"));
+                    System.out.println(("☹ OOPS!!! The event is not given in the proper format (event <description> /at <dd/MM/yyyy HHmm-HHmm>)"));
                 }
 
             }
@@ -183,9 +190,9 @@ public class Duke {
             Database = new File(filePath);
             Database.createNewFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
         } catch (ClassNotFoundException e) {
-            System.out.println("The project folder for Duke is missing the 'Task' class type");
+            System.out.println("☹ OOPS!!! The project folder for Duke is missing the 'Task' class type");
         }
         return listOfTasks;
     }
