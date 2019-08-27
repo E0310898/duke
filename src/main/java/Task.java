@@ -1,4 +1,6 @@
- class Task {
+import java.io.Serializable;
+
+class Task implements Serializable {
     protected String description; // basically similar to describing features of the class
     protected boolean isDone;
 
@@ -7,7 +9,7 @@
         this.isDone = false;
     }
 
-     public String getStatusIcon() {
+    public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 

@@ -1,6 +1,11 @@
+import java.io.*;
+import java.nio.file.attribute.FileStoreAttributeView;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Duke {
+
+    private static String filePath = "D:/DukeDatabase/ArrayList";
 
     private static void print_output(Task CurrentTask, int no_of_tasks) // Used to print the output repeatedly!
     {
@@ -12,7 +17,9 @@ public class Duke {
         System.out.println(user_output_dash);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
+
+        File Database = new File(filePath);
 
         Scanner scanner = new Scanner(System.in);
         String greeting = "_______________________________\n"
@@ -22,7 +29,7 @@ public class Duke {
 
         System.out.println(greeting);
 
-        ArrayList<Task> listOfTasks = new ArrayList<Task>();
+        ArrayList<Task> listOfTasks = loadFile(Database); //new ArrayList<Task>();
 
         String user_output_dash = "_______________________________"; // just a definition
 
@@ -56,6 +63,7 @@ public class Duke {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(currentTask.toString());
                     System.out.println(user_output_dash);
+                    saveFile(listOfTasks,Database);
                 }
                 else
                 {
@@ -72,6 +80,7 @@ public class Duke {
                     Todo TodoTask = new Todo(todo_name);
                     listOfTasks.add(TodoTask);
                     print_output(TodoTask, listOfTasks.size());
+                    saveFile(listOfTasks,Database);
                 }
                 catch (DukeException e) {
                     System.out.println(e);
@@ -92,6 +101,7 @@ public class Duke {
                         Deadline DeadlineTask = new Deadline(deadline_name, deadline_date);
                         listOfTasks.add(DeadlineTask);
                         print_output(DeadlineTask, listOfTasks.size());
+                        saveFile(listOfTasks,Database);
                     } catch (DukeException e) {
                         System.out.println(e);
                     }
@@ -105,7 +115,6 @@ public class Duke {
                 if (user_input.matches("event.*/at.*")) {
                     user_input = user_input.replace("event", "");
                     String[] parts = user_input.split("/at");
-
                     String event_name = parts[0];
                     String event_dateandtime;
 
@@ -116,6 +125,7 @@ public class Duke {
                         Event EventTask = new Event(event_name, event_dateandtime);
                         listOfTasks.add(EventTask);
                         print_output(EventTask, listOfTasks.size());
+                        saveFile(listOfTasks,Database);
                     } catch (DukeException e) {
                         System.out.println(e);
                     }
@@ -136,15 +146,47 @@ public class Duke {
                 System.out.println("5. To mark a task as complete just enter done<space>the index of the task as listed");
                 System.out.println("6. To exit, enter bye");
             }
-            else if(!user_input.equals("bye"))
+            else if(!user_input.matches("bye"))
             {
                 System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means. If you would like to know how to use Duke, Enter duke-manual");
             }
+
         }while (!user_input.equals("bye"));
 
         String goodbye = "_______________________________\n"
                        + "Bye. Hope to see you again soon!\n"
                        + "_______________________________\n";
         System.out.println(goodbye);
+    }
+
+    private static void saveFile(ArrayList<Task> listOfTasks, File database) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(database);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(listOfTasks);
+            objectOutputStream.close(); //always close
+            fileOutputStream.close(); //always close
+        } catch (IOException e) {
+            System.out.println("☹ OOPS!!! Error writing task list to file!!!");
+        }
+    }
+
+    private static ArrayList<Task> loadFile(File Database) throws IOException {
+        ArrayList<Task> listOfTasks = new ArrayList<Task>();
+        try {
+            FileInputStream fileInputStream = new FileInputStream(Database);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            listOfTasks = (ArrayList<Task>) objectInputStream.readObject();
+            fileInputStream.close();
+            objectInputStream.close();
+        } catch (FileNotFoundException e) {
+            Database = new File(filePath);
+            Database.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("The project folder for Duke is missing the 'Task' class type");
+        }
+        return listOfTasks;
     }
 }

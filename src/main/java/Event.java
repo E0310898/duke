@@ -1,4 +1,6 @@
-public class Event extends Task{
+import java.io.Serializable;
+
+public class Event extends Task implements Serializable {
 
     protected String at;
 
@@ -13,7 +15,6 @@ public class Event extends Task{
         }
     }
 
-    @Override
     public String toString() {
         return "[E]" +  "[" + super.getStatusIcon() + "]" + this.description + "(at:" + at + ")";
     }

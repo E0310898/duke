@@ -1,4 +1,6 @@
-public class Todo extends Task{
+import java.io.Serializable;
+
+public class Todo extends Task implements Serializable {
 
     public Todo(String description) throws DukeException {
         super(description);
@@ -7,7 +9,6 @@ public class Todo extends Task{
             }
         }
 
-    @Override
     public String toString() {
         return "[T]" + "[" + super.getStatusIcon() + "]" + this.description;
     }

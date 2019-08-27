@@ -1,4 +1,6 @@
-public class Deadline extends Task{
+import java.io.Serializable;
+
+public class Deadline extends Task implements Serializable {
 
     protected String by;
 
@@ -13,7 +15,6 @@ public class Deadline extends Task{
         }
     }
 
-    @Override
     public String toString() {
         return "[D]" + "[" + super.getStatusIcon() + "]" + this.description + "(by:" + by + ")";
     }
