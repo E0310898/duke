@@ -54,7 +54,8 @@ public class Duke {
                 }
                 System.out.println(user_output_dash);
             }
-            else if (user_input.matches("delete \\d+")){
+
+            else if (user_input.matches("delete \\d+")) {
                 int listIndex = Integer.parseInt(user_input.replaceAll("[^0-9]", ""));
                 listIndex -= 1;
                 if (listIndex < listOfTasks.size() && listIndex >= 0) {
@@ -64,15 +65,28 @@ public class Duke {
                     System.out.println(currentTask.toString());
                     System.out.println("Now you have " + listOfTasks.size() + " tasks in the list.");
                     System.out.println(user_output_dash);
-                    saveFile(listOfTasks,Database);
-                }
-                else
-                {
+                    saveFile(listOfTasks, Database);
+                } else {
                     System.out.println(user_output_dash);
                     System.out.println("☹ OOPS!!! Sorry the task does not exist!");
                     System.out.println(user_output_dash);
                 }
             }
+
+            else if (user_input.matches("find.*")) {
+                System.out.println(user_output_dash + "\n" + "Here are the matching tasks in your list:");
+                String find_name = user_input.replace("find", "");
+                find_name.replace(" ", "");
+
+                for (int i = 0; i < listOfTasks.size(); i++) {
+                    String find_match = listOfTasks.get(i).toString();
+                    if (find_match.contains(find_name)) {
+                        System.out.println((i += 1) + "." + listOfTasks.get(i -= 1).toString());
+                    }
+                }
+                System.out.println(user_output_dash);
+            }
+            
             else if (user_input.matches("done \\d+")) {
                 int listIndex = Integer.parseInt(user_input.replaceAll("[^0-9]", ""));
                 listIndex -= 1;
