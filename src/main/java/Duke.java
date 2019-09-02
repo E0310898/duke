@@ -54,6 +54,25 @@ public class Duke {
                 }
                 System.out.println(user_output_dash);
             }
+            else if (user_input.matches("delete \\d+")){
+                int listIndex = Integer.parseInt(user_input.replaceAll("[^0-9]", ""));
+                listIndex -= 1;
+                if (listIndex < listOfTasks.size() && listIndex >= 0) {
+                    Task currentTask = listOfTasks.remove(listIndex); // object instance
+                    System.out.println(user_output_dash);
+                    System.out.println("Noted. I've removed this task: ");
+                    System.out.println(currentTask.toString());
+                    System.out.println("Now you have " + listOfTasks.size() + " tasks in the list.");
+                    System.out.println(user_output_dash);
+                    saveFile(listOfTasks,Database);
+                }
+                else
+                {
+                    System.out.println(user_output_dash);
+                    System.out.println("☹ OOPS!!! Sorry the task does not exist!");
+                    System.out.println(user_output_dash);
+                }
+            }
             else if (user_input.matches("done \\d+")) {
                 int listIndex = Integer.parseInt(user_input.replaceAll("[^0-9]", ""));
                 listIndex -= 1;
