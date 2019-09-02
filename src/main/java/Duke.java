@@ -39,7 +39,13 @@ public class Duke {
 
         do
         {
-            user_input = scanner.nextLine();
+            if(scanner.hasNextLine()) {
+                user_input = scanner.nextLine();
+            }
+            else
+            {
+                user_input = "bye";
+            }
 
             if(user_input.contains("list"))
             {
@@ -86,7 +92,7 @@ public class Duke {
                 }
                 System.out.println(user_output_dash);
             }
-            
+
             else if (user_input.matches("done \\d+")) {
                 int listIndex = Integer.parseInt(user_input.replaceAll("[^0-9]", ""));
                 listIndex -= 1;
