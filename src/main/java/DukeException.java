@@ -1,6 +1,63 @@
 public class DukeException extends Exception {
-    public DukeException(String error){
-        super(error);
+    enum exceptionType {
+        UNKNOWN_USER_COMMAND,
+        EMPTY_USER_DESCRIPTION,
+        EMPTY_DATE_OR_TIME,
+        WRONG_DATE_OR_TIME,
+        TASK_DOES_NOT_EXIST,
+        UNABLE_TO_WRITE_FILE,
+        UNABLE_TO_READ_FILE,
+        TASK_CLASS_DOES_NOT_EXIST,
+        FILE_DOES_NOT_EXIST
+    }
+
+    public static exceptionType inputType;
+
+    public static String WRONG_DATE_OR_TIME() {
+        Ui.printManual();
+        Ui.printDash();
+        return "☹ OOPS!!! The date or time of this add type command is not of the correct format. See the manual above!";
+    }
+
+    public static String EMPTY_USER_DESCRIPTION() {
+        Ui.printManual();
+        Ui.printDash();
+        return "☹ OOPS!!! The description of the command is missing. See the manual above!";
+    }
+
+    public static String UNKNOWN_USER_COMMAND() {
+        Ui.printManual();
+        Ui.printDash();
+        return "☹ OOPS!!! The command you have entered is not of a valid type. See the manual above!";
+    }
+
+    public static String EMPTY_DATE_OR_TIME() {
+        Ui.printManual();
+        Ui.printDash();
+        return "☹ OOPS!!! The date or time of this add type command is missing. See the manual above!";
+    }
+
+    public static String TASK_DOES_NOT_EXIST() {
+        return "☹ OOPS!!! The task you searched for does not exist. See the manual above!";
+    }
+
+    public static String UNABLE_TO_WRITE_FILE() {
+        return "☹ OOPS!!! Unable to write file. The program will be terminated.";
+    }
+
+    public static String UNABLE_TO_READ_FILE() {
+        return "☹ OOPS!!! Unable to read from file. The program will be terminated.";
+    }
+
+    public static String TASK_CLASS_DOES_NOT_EXIST() {
+        return "☹ OOPS!!! Unable to extract certain features of the Duke Project. Please ensure the project was imported properly";
+    }
+
+    public static String FILE_DOES_NOT_EXIST() {
+        return "☹ OOPS!!! Unable to read from previous task list. A new file has been created for you";
+    }
+
+    public DukeException(String message) {
+        super(message);
     }
 }
-
