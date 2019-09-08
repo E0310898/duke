@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.ArrayList;
 
 public class Duke {
 
@@ -8,6 +7,7 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
     private File file = new File(filePath);
+    private boolean isExit = false;
 
     public static void main(String[] args){
         new Duke().run();
@@ -27,7 +27,7 @@ public class Duke {
 
     public void run(){
         Ui.printGreeting();
-        boolean isExit = false;
+
         do {
             String userInput = Ui.readInput();
             try {
@@ -41,4 +41,5 @@ public class Duke {
             }
         } while (!isExit);
     }
+
 }
