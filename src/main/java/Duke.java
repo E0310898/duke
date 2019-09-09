@@ -1,5 +1,13 @@
 import java.io.*;
 
+/**
+ * The main project class.
+ * Initializes a simple task list manager 'Duke' which helps users curate and manage a task list.
+ *
+ * @author Sai Ganesh Suresh
+ * @version v3.0
+ */
+
 public class Duke {
 
     private String filePath = "D:/DukeDatabase/ArrayList";
@@ -13,6 +21,10 @@ public class Duke {
         new Duke().run();
     }
 
+    /**
+     * This constructor creates a new instance of vital classes and also loads tasks if any from persistent storage
+     */
+
     public Duke(){
         ui = new Ui();
         storage = new Storage(this.filePath,file);
@@ -24,6 +36,10 @@ public class Duke {
             Ui.printMessage(e.getMessage());
         }
     }
+
+    /**
+     * This method runs the main program
+     */
 
     public void run(){
         Ui.printGreeting();

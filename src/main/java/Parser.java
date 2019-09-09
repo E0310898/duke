@@ -1,8 +1,23 @@
 import java.text.ParseException;
-import java.util.Date;
+
+/**
+ * The parser class is used to parse and make sense of the different queries the user inputs into the program and tag
+ * them for further processing!
+ *
+ * @author Sai Ganesh Suresh
+ * @version v2.0
+ */
 
 public class Parser {
 
+    /**
+     * Parses the user input of string type and returns the respective command type
+     *
+     * @param userInput This string is provided by the user to ask 'Duke' to perform a particular action
+     * @return Command After processing the user's input it returns the correct command for further processing
+     * @throws DukeException The DukeException class has all the respective methods and messages!
+     *
+     */
     public static Command parse(String userInput) throws DukeException {
 
         String command = userInput.split("\\s+", 2)[0].trim();
@@ -25,31 +40,7 @@ public class Parser {
                     return new AddCommand(command, taskFeatures, null);
                 }
             case "deadline":
-                try {
-                    taskFeatures = userInput.split("\\s+", 2)[1].trim();
-                }catch (ArrayIndexOutOfBoundsException e)
-                {
-                    throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
-                }
-                if (taskFeatures.isEmpty()) {
-                    throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
-                } else {
-                    checkType = "/by";
-                    String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
-                    if (taskDescription.isEmpty()) {
-                        throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
-                    }
-                    String formattedDateTime;
-                    try {
-                        String dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
-                        formattedDateTime = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new DukeException(DukeException.EMPTY_DATE_OR_TIME());
-                    } catch (ParseException e) {
-                        throw new DukeException(DukeException.WRONG_DATE_OR_TIME());
-                    }
-                    return new AddCommand(command, taskDescription, formattedDateTime);
-                }
+                //fall through
             case "event":
                 try {
                     taskFeatures = userInput.split("\\s+", 2)[1].trim();
@@ -60,7 +51,12 @@ public class Parser {
                 if (taskFeatures.isEmpty()) {
                     throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
                 } else {
-                    checkType = "/at";
+                    if (command == "deadline") {
+                        checkType = "/at";
+                    }
+                    else {
+                        checkType = "/by";
+                    }
                     String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
                     if (taskDescription.isEmpty()) {
                         throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());

@@ -1,5 +1,9 @@
 import java.io.Serializable;
 
+/**
+ * @serial
+ */
+
 class Task implements Serializable {
     protected String description; // basically similar to describing features of the class
     protected boolean isDone;
