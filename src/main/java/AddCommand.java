@@ -49,7 +49,7 @@ public class AddCommand extends Command {
 
         tasks.add(task);
         storage.saveFile(tasks.getTasks());
-        Ui.printOutput("Got it! I've added this task:" + "\n  " + task.toString() +"\nNow you have " +
+        ui.printOutput("Got it! I've added this task:" + "\n  " + task.toString() +"\nNow you have " +
                         tasks.getSize() + " task(s) in the list.");
     }
 }

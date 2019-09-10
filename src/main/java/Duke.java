@@ -42,7 +42,6 @@ public class Duke {
 
     public void run(){
         Ui.printGreeting();
-
         do {
             String userInput = Ui.readInput();
             try {

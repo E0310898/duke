@@ -92,7 +92,7 @@ public class Ui {
         System.out.println("I am able to let you add tasks of three types! todo, event and deadline");
         System.out.println("1. To add a todo task, key in todo<space>your task description eg. todo borrow books");
         System.out.println("2. To add a deadline, key in deadline<space>your deadline description<space>/by<space>the "
-                               + "date eg. return books/by dd/MM/yyyy HHmm");
+                               + "date eg. return books /by dd/MM/yyyy HHmm");
         System.out.println("3. To add a event, key in event<space>your event description<space>/at<space>the day or " +
                                "date and the time eg. Project meeting /at dd/MM/yyyy HHmm-HHmm");
         System.out.println("4. To list out all your tasks simply enter list");

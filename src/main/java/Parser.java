@@ -50,11 +50,11 @@ public class Parser {
                 if (taskFeatures.isEmpty()) {
                     throw new DukeException(DukeException.EMPTY_USER_DESCRIPTION());
                 } else {
-                    if (command == "deadline") {
-                        checkType = "/at";
+                    if (command.contains("deadline")) {
+                        checkType = "/by";
                     }
                     else {
-                        checkType = "/by";
+                        checkType = "/at";
                     }
                     String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
                     if (taskDescription.isEmpty()) {

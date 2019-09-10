@@ -9,6 +9,12 @@ public class Event extends Task implements Serializable{
 
     private String date;
 
+    /**
+     * This Event constructor is used to assign the different parameters required when adding a task.
+     *
+     * @param description this string holds the description of the task provided by the user.
+     * @param date this string holds the date of the task provided by the user.
+     */
     public Event(String description, String date) {
         super(description);
         this.date = date;
@@ -22,6 +28,6 @@ public class Event extends Task implements Serializable{
      */
     @Override
     public String toString() {
-        return "[E]" +  "[" + super.getStatusIcon() + "]" + this.description + "(at: " + date + ")";
+        return "[E]" +  "[" + super.getStatusIcon() + "] " + this.description + " (at: " + date + ")";
     }
 }

@@ -29,6 +29,7 @@ public class DateTimeExtractor {
         if(command.equals("event")) {
             System.out.println(command);
             dateEvent = (DATE_FORMATTER_EVENT.parse(dateTimeFromUser)).toString();
+
             return dateEvent;
         }
         else if(command.equals("deadline")) {
