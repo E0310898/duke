@@ -11,7 +11,14 @@ public class DeleteCommand extends Command{
     public DeleteCommand(int indexOfTask) {
         this.indexOfTask = indexOfTask;
     }
-
+    /**
+     * This execute function is used to add the respective tasks to the TaskList and save to persistent storage.
+     *
+     * @param tasks this string holds command type determinant to decide how to process the user input.
+     * @param ui this string holds the description of the task provided by the user.
+     * @param storage this parameter provides the execute function the storage to allow the saving of the file.
+     * @throws DukeException The DukeException for task does not exist will be executed.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (indexOfTask > 0 && indexOfTask < (tasks.getSize() - 1)) {

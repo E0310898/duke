@@ -25,7 +25,8 @@ public class DukeException extends Exception {
     public static String WRONG_DATE_OR_TIME() {
         Ui.printManual();
         Ui.printDash();
-        return "☹ OOPS!!! The date or time of this add type command is not of the correct format. See the manual above!";
+        return "☹ OOPS!!! The date or time of this add type command is not of the correct format. " +
+                "See the manual above!";
     }
 
     public static String EMPTY_USER_DESCRIPTION() {
@@ -59,7 +60,8 @@ public class DukeException extends Exception {
     }
 
     public static String CLASS_DOES_NOT_EXIST() {
-        return "☹ OOPS!!! Unable to extract certain features of the Duke Project. Please ensure the project was imported properly";
+        return "☹ OOPS!!! Unable to extract certain features of the Duke Project. Please ensure the project was " +
+                "imported properly";
     }
 
     public static String FILE_DOES_NOT_EXIST() {

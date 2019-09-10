@@ -30,7 +30,7 @@ public abstract class Command {
      * @param tasks The TaskList that was loaded from persistent storage is passed to the caller to utilise it.
      * @param ui The UI is passed to the caller to update the user output on the command line.
      * @param storage The storage is passed to the user to allow the user to save the file after updating TaskList.
-     * @throws DukeException The DukeException class has all the respective methods and messages.
+     * @throws DukeException The DukeException class has all the respective methods and messages. (based on extension)
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 

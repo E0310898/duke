@@ -9,6 +9,12 @@ public class Deadline extends Task implements Serializable{
 
     private String date;
 
+    /**
+     * This Deadline constructor is used to assign the different parameters required when adding a task.
+     *
+     * @param description this string holds the description of the task provided by the user.
+     * @param date this string holds the date of the task provided by the user.
+     */
     public Deadline(String description, String date){
         super(description);
         this.date = date;
