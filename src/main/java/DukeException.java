@@ -1,4 +1,13 @@
+
+/**
+ * This Exception class is used to handle all of the expected exceptions and certain unexpected exceptions to give the
+ * user a better understanding of why the program crashed.
+ *
+ * @author Sai Ganesh Suresh
+ * @version v1.0
+ */
 public class DukeException extends Exception {
+
     enum exceptionType {
         UNKNOWN_USER_COMMAND,
         EMPTY_USER_DESCRIPTION,
@@ -49,7 +58,7 @@ public class DukeException extends Exception {
         return "☹ OOPS!!! Unable to read from file. The program will be terminated.";
     }
 
-    public static String TASK_CLASS_DOES_NOT_EXIST() {
+    public static String CLASS_DOES_NOT_EXIST() {
         return "☹ OOPS!!! Unable to extract certain features of the Duke Project. Please ensure the project was imported properly";
     }
 

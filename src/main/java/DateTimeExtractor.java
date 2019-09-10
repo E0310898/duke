@@ -11,14 +11,12 @@ public class DateTimeExtractor {
 
     public static String extractDateTime(String dateTimeFromUser, String command) throws ParseException {
 
-        if(command.equals("event"))
-        {
+        if(command.equals("event")) {
             System.out.println(command);
             dateEvent = (DATE_FORMATTER_EVENT.parse(dateTimeFromUser)).toString();
             return dateEvent;
         }
-        else if(command.equals("deadline"))
-        {
+        else if(command.equals("deadline")) {
             dateDeadline = (DATE_FORMATTER_DEADLINE.parse(dateTimeFromUser)).toString();
             return dateDeadline;
         }

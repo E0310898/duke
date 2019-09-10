@@ -22,14 +22,13 @@ public class Duke {
     }
 
     /**
-     * This constructor creates a new instance of vital classes and also loads tasks if any from persistent storage
+     * This constructor creates a new instance of vital classes and also loads tasks if any from persistent storage.
      */
 
     public Duke(){
         ui = new Ui();
-        storage = new Storage(this.filePath,file);
-
         try {
+            storage = new Storage(this.filePath, file);
             tasks = new TaskList(storage.loadFile(file));
         }
         catch (DukeException e) {
@@ -38,7 +37,7 @@ public class Duke {
     }
 
     /**
-     * This method runs the main program
+     * This method runs the main program.
      */
 
     public void run(){

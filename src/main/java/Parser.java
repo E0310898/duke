@@ -101,6 +101,7 @@ public class Parser {
                 return new ExitCommand();
             default:
                 // Empty string or unknown command.
+                Ui.printUnknownInput();
                 throw new DukeException(DukeException.UNKNOWN_USER_COMMAND());
         }
     }
